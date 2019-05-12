@@ -6,7 +6,7 @@
 ##
 
 CXX = g++
-CXXFLAGS = -O0 -Wall -g2 -ggdb -std=c++11 -c  
+CXXFLAGS = -O0 -Wall -g2 -ggdb -std=c++11 -c -lasan 
 
 ### 要链接的库
 
@@ -39,8 +39,8 @@ $(DIR_OBJS)/%.o:%.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@
 
 all: $(ALL_OBJ)
-	$(CXX) $(TEST_OBJ) $(COMMON_OBJ) -o $(TESTAPP)
-	$(CXX) $(GATEAPP_OBJ) $(COMMON_OBJ) -o $(GATEAPP)
+	$(CXX) $(TEST_OBJ) $(COMMON_OBJ) -lasan -lpthread -o $(TESTAPP)
+	$(CXX) $(GATEAPP_OBJ) $(COMMON_OBJ) -lasan -lpthread -o $(GATEAPP)
 
 .PHONY: show
 show:
